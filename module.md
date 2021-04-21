@@ -14,6 +14,7 @@
 
 
 ### CommonJS的模块规范
+#### 基础知识
 
 1. 模块引入
     `js require()`
@@ -38,4 +39,31 @@
 
    <strong style="color:red">与浏览器的缓存区别</strong>：浏览器紧紧缓存文件，node缓存的是编译和执行之后的对象。
 
-5. 
+5. node中的实现过程
+
+    <strong>1). 路径分析</strong>
+        通过require()方法接受的一个标识符，基于这个标识符进行路径分析(区分：系统核心模块还是文件模块)；自定义模块根据`module.paths`路径数组查找。
+
+    * 模块路径生成规则（文件的路径越深，模块查找耗时越久，所以自定义模块的加载速度是最慢的。）：
+            1). 当前文件目录下的node_modules目录;
+            2). 父目录下的node_modules目录;
+            3). 父目录下的父目录的node_modules目录;
+            ...
+            4). 沿着路径向上逐级递归，直到根目录下的node_modules目录;
+            
+
+    <strong>2). 文件定位</strong>
+        * 分析文件扩展名 （node.js按照js、.node、.json次序依次尝试）
+    
+    <strong>3). 模块编译</strong>
+        
+        根据不同的扩展名进行不同的编译方案。编译成功后的模块都会将其<span style="color:red">文件路径</span>作为<span  style="color:red">索引</span>缓存<span style="color:red">Module._cache</span>对象上<br>
+       
+        * 非.node的文件通过<span style="color:red">fs模块同步</span>的方式读取文件后编译执行(.json 使用JSON.parse()解析返回结果)；
+
+        * .node文件通过<span style="color:red">dliopen()</span>方法加载后编译生成二进制文件；
+
+
+6. 扩展知识
+JavaScript的位运算参照java的位运算（java位运算在int型数字的基础上进行的），JavaScript只有double型的数据类型，在进行位运算的过程中，需要将double型转换为int型后再进行。JavaScript层面上做位运算的效果不高。
+
