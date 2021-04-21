@@ -1,4 +1,4 @@
-# docsify website sample <small>0.0.1</small>
+# 我的前端博客
 
 <a href="https://github.com/lexmin0412/docsify-website-sample">Github</a>
 <a href="#README">开始阅读</a>

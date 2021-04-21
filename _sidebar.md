@@ -6,7 +6,7 @@
 
 - Node
   <!-- - [创建子进程方式](/docs/child_process.md) -->
-  - [模块](module.md)
+  - [模块](/docs/module.md)
 <!-- 
 - 协议
   - [webSocket](/docs/webSocket.md) -->
