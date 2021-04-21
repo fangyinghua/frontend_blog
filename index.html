@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <title>docsify website sample</title>
+  <title>fangyh博客</title>
   <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
@@ -12,18 +11,21 @@
   <!-- vue主题样式 -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   <!-- 暗黑主题插件样式 -->
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/style.min.css"
-    title="docsify-darklight-theme" type="text/css" />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/style.min.css" title="docsify-darklight-theme"
+    type="text/css" />
+  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
 </head>
 
 <body>
   <div id="app">loading...</div>
   <!-- 在github上编辑插件 -->
   <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
   <script>
     window.$docsify = {
       basePath: '/', // 资源相对路径
-      name: 'docsify website sample', // 文档标题，会显示在侧边栏顶部
+      name: 'fangyh博客', // 文档标题，会显示在侧边栏顶部
       nameLink: '/', // 点击文档标题后的跳转地址
       repo: 'lexmin0412/docsify-website-sample', // 有repo属性则右上角会展示github图标，点击可进入
       loadSidebar: true, // 加载侧边栏
@@ -53,8 +55,8 @@
         EditOnGithubPlugin.create(
           'https://github.com/lexmin0412/docsify-website-sample/blob/master/docs/',
           null,
-          function ( file ) {
-            if ( file.indexOf( 'en' ) === -1 ) {
+          function (file) {
+            if (file.indexOf('en') === -1) {
               return '在 GitHub 上编辑'
             } else {
               return 'Edit on Github'
@@ -116,5 +118,16 @@
 <!-- 阅读进度条插件 -->
 <script src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/index.min.js"></script>
 <!-- 暗黑主题切换插件 -->
+<!-- 评论 -->
+<script>
+  const gitalk = new Gitalk({
+    clientID: '6d9276b1b1f50c1f5f66',
+    clientSecret: 'f4a84bfbd876e5cfb93d98f368642c36e0ac624c',
+    repo: 'Python-Notes',
+    owner: 'fangyinghua',
+    admin: ['fangyinghua'],
+    distractionFreeMode: false
+  })
+</script>
 
 </html>
