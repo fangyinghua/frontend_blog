@@ -99,3 +99,7 @@
     * 如果 worker 的 MIME 类型不正确，将抛出一个 NetworkError 异常。worker 的 MIME 类型必须是 text/javascript 。
     * 如果 aURL 无法被解析（格式错误），将抛出一个 SyntaxError 异常。
 * 例子
+
+
+### 位运算
+JavaScript的位运算参照java的位运算（java位运算在int型数字的基础上进行的），JavaScript只有double型的数据类型，在进行位运算的过程中，需要将double型转换为int型后再进行。JavaScript层面上做位运算的效果不高。

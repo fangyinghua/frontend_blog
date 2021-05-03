@@ -1,8 +1,7 @@
 ### 模块的发展历程
 早期的javascript没有模块系统、自动加载和安装依赖的能力。
 [最根本解决问题是变量、方法的私有化，虽然可以通过闭包解决，但是依赖库，通过参数传入的方法，不够清晰。]
-
-<strong>比如</strong>：下面依赖关系不清晰。
+<strong>比如</strong>：
 ```js
 (function (window) {
     window.a = function () {
@@ -64,6 +63,4 @@
         * .node文件通过<span style="color:red">dliopen()</span>方法加载后编译生成二进制文件；
 
 
-6. 扩展知识
-JavaScript的位运算参照java的位运算（java位运算在int型数字的基础上进行的），JavaScript只有double型的数据类型，在进行位运算的过程中，需要将double型转换为int型后再进行。JavaScript层面上做位运算的效果不高。
 

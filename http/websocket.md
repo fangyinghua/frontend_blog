@@ -42,7 +42,6 @@
 ##### 收发数据 -- 二进制帧
     
 1. webSocket 的帧结构
-
     * 数据传输使用的是`一系列数据帧`，出于安全考虑和避免网络截获，`客户端发送的数据帧`必须进行`掩码处理`后才能发送到服务器，不论是否是在TLS安全协议上都要进行掩码处理。
     * 服务器如果没有收到掩码处理的数据帧时应该关闭连接，发送一个1002的状态码。
     * 服务器`不能`将发送到客户端的数据进行`掩码`处理，如果客户端收到掩码处理的数据帧必须`关闭连接`。
@@ -57,8 +56,16 @@
 
 * 第一个字节(8位)
     * 第一位“FIN”是消息结束的标志位,表示数据发送完毕。一个消息可以拆成多个帧，接收方看到“FIN”后，就可以把前面的帧拼起来，组成完整的消息。
-    * 2-4位（RSV1,RSV2,RSV3），保留位，目前没有任何意义，但必须是 0。
-    * 后4位，`OPcode操作码`，其实就是`帧类型`.比如 1 表示`帧内容`是纯文本，2 表示`帧内容`是二进制数据，8 是关闭连接，9 和 10 分别是`连接保活的 PING 和 PONG`。
+    * 2-4位（RSV1,RSV2,RSV3）：保留位，扩展进行定义，一般情况下全为0。
+    * 后4位，`OPcode操作码`，其实就是`帧类型`（决定了如何解析后续的数据载荷 [data palyload]）. 比如 1 表示`帧内容`是纯文本，2 表示`帧内容`是二进制数据，8 是关闭连接，9 和 10 分别是`连接保活的 PING 和 PONG`。
+        * %x0:延续帧。当OPcode为0时，表述本次数据传输采用数据分片；
+        * %x1:帧内容为文本帧;
+        * %x2:帧内容为二进制帧;
+        * %x3-7:保留的操作代码（非控制帧）;
+        * %x8:连接断开；
+        * %x9:ping操作;
+        * %x10:pong操作;
+
 * 第2字节
     * 第一位是`掩码`标志位“MASK”;表示`帧内容`是否使用`异或操作`（xor）做简单的加密。客户端发送数据必须使用掩码，而服务器发送则必须不使用掩码。
     * 后 7 位是“Payload len”,表示帧内容的长度。是一种`变长编码`，最少 7 位，最多是 7+64 位，也就是额外增加 8 个字节，所以一个 `WebSocket 帧最大是 2^64`。
@@ -68,107 +75,11 @@
 
 4. [例子](https://www.cnblogs.com/jocongmin/p/9236485.html)：心跳检测 -- 发送 ping 帧 
 
-```js
-
-
-//心跳检测
-var heartCheck = {
-    timeout: 10000, //9分钟发一次心跳
-    timeoutObj: null,
-    serverTimeoutObj: null,
-    reset: function() {
-        clearTimeout(this.timeoutObj);
-        clearTimeout(this.serverTimeoutObj);
-        return this;
-    },
-    start: function() {
-        var self = this;
-        this.timeoutObj = setTimeout(function() {
-            //这里发送一个心跳，后端收到后，返回一个心跳消息，
-            //onmessage拿到返回的心跳就说明连接正常
-            ws.send("ping");
-            self.serverTimeoutObj = setTimeout(function() { //如果超过一定时间还没重置，说明后端主动断开了
-                ws.close(); //这里为什么要在send检测消息后，倒计时执行这个代码呢，因为这个代码的目的时为了触发onclose方法，这样才能实现onclose里面的重连方法
-　　　　　　　　　　//所以这个代码也很重要，没有这个方法，有些时候发了定时检测消息给后端，后端超时（我们自己设定的时间）后，不会自动触发onclose方法。我们只有执行ws.close()代码，让ws触发onclose方法
- 　　　　　　　　　　//的执行。如果没有这个代码，连接没有断线的情况下而后端没有正常检测响应，那么浏览器时不会自动超时关闭的（比如谷歌浏览器）,谷歌浏览器会自动触发onclose
-　　　　　　　　　　//是在断网的情况下，在没有断线的情况下，也就是后端响应不正常的情况下，浏览器不会自动触发onclose，所以需要我们自己设定超时自动触发onclose，这也是这个代码的
-　　　　　　　　　　//的作用。
-            }, self.timeout)
-        }, this.timeout)
-    }
-}
-
-function reconnect(url) {
-    if (lockReconnect) return;
-    lockReconnect = true;
-    setTimeout(function() { //没连接上会一直重连，设置延迟避免请求过多
-        createWebSocket(url);
-        lockReconnect = false;
-    }, 2000);
-}
-
-var lockReconnect = false; //避免ws重复连接
-var ws = null; // 判断当前浏览器是否支持WebSocket
-var wsUrl = null;
-var config = {};
-
-
-
-function socketLink(set) {
-    config = set;
-    wsUrl = config.url;
-    createWebSocket(wsUrl); //连接ws
-}
-
-function createWebSocket(url) {
-    try {
-        if ('WebSocket' in window) {
-            ws = new WebSocket(url, 'echo-protocol');
-        } else if ('MozWebSocket' in window) {
-            ws = new MozWebSocket(url, 'echo-protocol');
-        } else {
-            alert("您的浏览器不支持websocket")
-        }
-        initEventHandle();
-    } catch (e) {
-        reconnect(url);
-        console.log(e);
-    }
-}
-
-function initEventHandle() {
-    ws.onclose = function() {
-        reconnect(wsUrl);
-        console.log("llws连接关闭!" + new Date().toUTCString());
-    };
-    ws.onerror = function() {
-        reconnect(wsUrl);
-        console.log("llws连接错误!");
-    };
-    ws.onopen = function() {
-        heartCheck.reset().start(); //心跳检测重置
-        console.log("llws连接成功!" + new Date().toUTCString());
-        config.open(ws)
-    };
-    ws.onmessage = function(event) { //如果获取到消息，心跳检测重置
-        heartCheck.reset().start(); //拿到任何消息都说明当前连接是正常的
-        config.msg(event.data,ws)
-    };
-}
-// 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-window.onbeforeunload = function() {
-    ws.close();
-}
-
-```
-
-
 ##### 心跳检测
-* 连接 可能因为许多无法控制的原因 而 意外关闭。
+* 连接可能因为许多无法控制的原因而意外关闭。
 * 有些连接关闭的原因可以避免，可以避免的常见连接丢失原因是`TCP级别的空闲`，这会影响WebSocket连接.
 * 因为WebSocket连接处于TCP连接的上层，发生在TCP级别的连接问题会影响WebSocket连接。
-
-* 用WebSocket ping和pong能够保持连接打开，为数据流动做好准备。
+* 用WebSocket ping和pong能够保持连接打开。
 * ping和pong可以从打开的WebSocket连接的任一端发起。
 
 * ping帧：
@@ -181,4 +92,72 @@ window.onbeforeunload = function() {
     * Pong帧可以在未收到Ping帧时就被发送，用作<code>单向心跳包</code>。
     * 不需要对未被请求的Pong帧（对方主动发送的Pong帧）进行回应。
 
+
+##### websocket关闭会话的方式
+1. 控制帧中的关闭帧：在TCP连接之上的双向关闭
+    * 发送关闭帧后，不能在发送任何数据；
+    * 接收到关闭帧后，不能再接收任何到达的数据
+    * 先发送关闭帧（websocket关闭），然后再TCP四次挥手，断开TCP连接；
+2. TCP连接意外中断
+3. 关闭帧格式
+    * opcode=8;
+    * 可以含有数据(palyload)，但仅用于解释关闭会话的原因 (如：1000:正常关闭 ；1002：发现协议错误)
+        * 前2字节为无符合整型
+        * 遵循mask掩码规则
+
+
+
 ##### 其他知识 -- 语法格式描述规范BNF、EBNF、ABNF
+
+##### Socket.io
+* 基于 Node 的 JavaScript 框架;
+* 包含 client 的 JavaScript 和 server 的 Node;
+* Socket.io不是Websocket;
+* 将`Websocket`和`轮询 （Polling）机制`以及`其它的实时通信方式`封装成了`通用的接口`，并且`在服务端实现了这些实时机制的相应代码`。
+
+##### websocket相关面试题目
+1. 什么是websocket？
+websocket是HTML5的一个新协议，它允许服务端向客户端传递信息，实现浏览器和客户端双工通信;
+通过 send() 方法来向服务器发送数据，并通过 onmessage事件来接收服务器返回的数据;
+`var Socket = new WebSocket(url, [protocol] );`
+
+2. 全双工通讯协议的概念
+通信允许数据在两个方向上`同时传输`;
+3. WebSocket和Socket的区别是什么？
+Socket是`应用层与TCP/IP协议`通信的中间软件抽象层，它是`一组接口`。而WebSocket则不同，它是`一个完整的应用层协议`，包含`一套标准的API`。
+4. WebSocket的服务器推送和http2.0服务器推送区别
+    * http2.0服务器推送主要应用场景：
+        1. 推送css/js等资源
+        ```js
+        spdy.createServer(options, function(req, res) {
+        // push JavaScript asset (/main.js) to the client
+        res.push('/main.js', {'content-type': 'application/javascript'}, function(err, stream) {
+            stream.end('alert("hello from push stream!")');
+        });
+
+        // write main response body and terminate stream
+        res.end('Hello World! <script src="/main.js"></script>');
+        }).listen(443);
+        ```
+        2. 推送一次重定向(资源替换) -- 服务器能够主动的管理客户端缓存
+        ```js
+        spdy.createServer(options, function(req, res) {
+        //push JavaScript asset (/newasset.js) to the client
+        res.push('/newasset.js', {'content-type': 'application/javascript'}, function(err, stream) {
+            stream.end('alert("hello from (redirected) push stream!")');
+        });
+
+        // push 301 redirect: /asset.js -> /newasset.js
+        res.push('/asset.js', {':status': 301, 'Location': '/newasset.js'}, function(err, stream) {
+            stream.end('301 Redirect');
+        });
+
+        // write main response body and terminate stream
+        res.end('<script src="/asset.js"></script>');
+        }).listen(443);
+        ```
+    * WebSocket主要用来推送数据，http2.0推送资源(管理客户端缓存)；
+
+5. http和websocket的长连接心跳保持区别
+    * http长连接只能基于简单的超时(常见65秒);
+    * WebSocket连接基于ping/Pong心跳机制维持

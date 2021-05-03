@@ -42,8 +42,8 @@ Promise是一种异步编程的 一种解决方案，异步操作的最终完成
                 status: "fulfilled",
                 value: "success"
             }, {
-                    reason: "failed",
-                    status: "rejected"
+                reason: "failed",
+                status: "rejected"
             }]
             */
         }, (error) => {
@@ -107,72 +107,45 @@ Promise是一种异步编程的 一种解决方案，异步操作的最终完成
 
        
 6. 使用XHR例子：
+
 ```js
+    function imgLoad(URL){
 
-function imgLoad(URL){
+        return new Promise(function(resole,reject){
+        const request=new XMLHttpRequest();
 
-    return new Promise(function(resole,reject){
-       const request=new XMLHttpRequest();
-
-       request.open('GET',url);
-       request.responseType='blob';//blob--[binary large object]
-       request.onload=function(){
-           if(request.state===200){
-               resolve(request.response);
-           }else{
-               reject(Error('Image didn\'t load successfully; error code:' + request.statusText));
-           }
+        request.open('GET',url);
+        request.responseType='blob';//blob--[binary large object]
+        request.onload=function(){
+            if(request.state===200){
+                resolve(request.response);
+            }else{
+                reject(Error('Image didn\'t load successfully; error code:' + request.statusText));
+            }
 
 
-       }
-       request.onerror=function(){
-          reject(Error('There was a network error.'))
-       }
+        }
+        request.onerror=function(){
+            reject(Error('There was a network error.'))
+        }
 
-       request.send();
+        request.send();
+        })
+    }
+
+    imgLoad('XXXX').then(function(response){
+        window.URL.
     })
 
-
-}
-
-imgLoad('XXXX').then(function(response){
-    window.URL.
-})
- 
-
-
-
-
-  function imgLoad(url) {    
-    return new Promise(function(resolve, reject) {
-      var request = new XMLHttpRequest();
-      //建立连接
-      request.open('GET', url);
-      request.responseType = 'blob';
-      request.onload = function() {
-        if (request.status === 200) {
-          resolve(request.response);
-        } else {
-          reject(Error('Image didn\'t load successfully; error code:' + request.statusText));
-        }
-      };
-      request.onerror = function() {
-          reject(Error('There was a network error.'));
-      };
-      //发送请求
-      request.send();
+    var body = document.querySelector('body');
+    var myImage = new Image();
+    imgLoad('myLittleVader.jpg').then(function(response) {
+        var imageURL = window.URL.createObjectURL(response);
+        myImage.src = imageURL;
+        body.appendChild(myImage);  
+    }, function(Error) {
+        console.log(Error);
     });
-  }
-  var body = document.querySelector('body');
-  var myImage = new Image();
-  imgLoad('myLittleVader.jpg').then(function(response) {
-    var imageURL = window.URL.createObjectURL(response);
-    myImage.src = imageURL;
-    body.appendChild(myImage);  
-  }, function(Error) {
-    console.log(Error);
-  });
-  
 ```
 
 ##### 手写promise
