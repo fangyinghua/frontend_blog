@@ -105,7 +105,7 @@
     ![服务器](../img/http/基于TLS升级为h2协议--服务器.jpg)
 
 ##### streamID
-1. 作用 
+* 作用 
     * 实现多路复用的关键
     * 同一 Stream 内的 frame必须是有序的(无法并发)
     * SETTINGS_MAX_CONCURRENT_STREAMS控制并发 Stream数
@@ -119,7 +119,6 @@
     * 应用层流控 仅影响数据帧
         * stream ID为0的流 仅用于传输控制帧；
     * 在http/1 升级到 h2c中，以ID为1流返回响应，之后流进入half-closed（local）状态；
-
 
 ##### http2帧
 
@@ -142,8 +141,8 @@
     * 动态字典 (Dynamic Table)
     * 压缩算法： Huffman编码(最高压缩比 8:5)
 * 静态字典
-  带value
-  不带value
+    * 带value
+    * 不带value
 
 
 
