@@ -135,7 +135,7 @@
     4. 
 
 ##### HPACK头部压缩
-* PRC7541
+* [PRC7541](https://www.rfc-editor.org/rfc/pdfrfc/rfc7541.txt.pdf)
 * 三种压缩方式
     * 静态字典 (Static Table)
     * 动态字典 (Dynamic Table)
@@ -144,27 +144,4 @@
     * 带value
     * 不带value
 
-
-
-
-
-
-* 解决办法：使用HPACK 头部压缩
-1. 压缩方式
-    1. 静态字典
-    2. 动态字典
-    1. 压缩算法：Huffman编码(最高压缩比8:5)
-* 索引表格式：
-    * index Hardname Hardvalue
-    * 有些含hardvalue，有些不含hardvalue
-* h2load 工具测试
-* 访问一次：静态表和Huffman编码
-* 访问一次以上：静态表/动态表/Huffman,访问次数越多，压缩比越大；
-* 为什么可以反复传输，依靠动态表提高压缩比；
-
-* http的head如何编码 --Huffman编码
-
-
-
-* HTTP/2 还添加了一些`控制帧`来`管理` `虚拟的“流”`，实现了`优先级和流量控制`
-2. HTTP/2 的消息不再是“Header+Body”的形式，而是分散为多个二进制“帧”；HTTP/2 使用虚拟的“流”传输消息，解决了困扰多年的“队头阻塞”问题，同时实现了“多路复用”，提高连接的利用率；
+### -- 待写 --

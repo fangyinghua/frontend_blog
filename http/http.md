@@ -1,6 +1,107 @@
 
 # http
 
+### 为什么要进行URI编码
+
+* 传递数据中，如果存在 `用作分隔符的保留字符` 怎么办？
+* 对可能`产生歧义性的数据`编码
+    * 不在ASCII码范围内的字符
+    * ASCII码中不可显示的字符 （一共128个、33个无法显示 99个可以显示）
+    * URI中规定的保留字符
+    * 不安全字符(传输环节中可能会被不正确处理)，如空格、引号、尖括号等；
+
+* URI中规定的保留字符：
+    * gen-delims -- : / ? # [ ] @
+    * sub-delims -- ! $ & ' ( ) * + , ; =
+* URI 百分号编码
+    * 百分号编码方式
+        * % HEXDIG HEXDIG
+        * 对于HEXDIG 十六进制中的字母，大小写等价
+    * 非ASCII码字符（例如中文）：建议先UTF-8编码，在US-ASCII编码；
+    * 对于URI合法字符，编码与不编码是等价的
+### 请求行
+* `request-line = method SP request-target SP HTTP-version CRLF`
+* method方法：指明操作目的，动词;
+* request-target:如果为OPTIONS方法传递"*";
+* Http-version
+    * HTTP/0.9:只支持GET方法，过时；
+    * HTTP/1.0:RFC1945，1996 (常见与代理服务器)
+    * HTTP/1.1:RFC2616 ，1999
+    * HTTP/2.0:2015.5正式发布
+### 常见方法
+幂等方法：是指无论调用多少次,结果都相同; --事务
+* GET：获取信息，幂等方法；
+* HEAD:类似GET，但是服务器不发送BODY，用于获取HEAD元数据，幂等方法；
+* POST：新增资源；常用于提交HTML form表单；
+* PUT：更新资源，带条件时是幂等方法;
+* DELETE:删除资源，幂等方法；
+* CONNECT：建立tunnel隧道；
+* OPTIONS：显示服务器对访问资源支持 的方法，幂等方法；（跨域）
+    * 检测服务器性能
+    * 获取服务器支持的的HTTP请求方法；
+* TRACE：回显服务器收到的请求，用于定位问题。有安全风险；
+
+### CORS(跨域资源共享)
+* Preflighted Requests(预检请求)
+Preflighted Requests是CORS中一种透明 `服务器验证机制`,预检请求首先需要向另外一个域名的资源发送一个 `HTTP OPTIONS 请求头`，其目的就是为了判断`实际发送的请求是否是安全的`。
+* 下面的2种情况需要进行预检：
+    * 简单请求，比如使用Content-Type 为 application/xml 或 text/xml 的 POST 请求；
+    * 设置自定义头，比如 X-JSON、X-MENGXIANHUI 等。
+
+### 响应码
+* 1XX:请求已接收到，需要进一步处理才能完成，http1.0不支持；
+    * 100 Continue:上传大文件前使用（告知服务器需要上传大文件）
+        * 由客户端发起请求中携带 Expect：100-continue 头部触发 （Expect预期）
+        * 服务器返回 100 Continue
+    * 101 Switch Protocols:协议升级使用
+        * 由客户端发起请求中携带Upgrade头部触发；
+    * 102 Processing(处理)：表示服务器已经收到并正在处理请求，但无响应可用(处理响应要很久)，防止客户端超时。
+
+* 2XX：
+    * 200 ok:成功返回响应;
+    * 201 Created：有新资源在服务器端被成功创建;
+    * 202 Accepted:服务端接收并开始处理请求，但请求未处理完成。例如：异步、需要长时间处理的任务。
+    * 204 No Content:成功执行了请求且不携带响应包体，并暗示客户端无需更新当前的页面视图；
+    * 205 Reset Content:成功执行了请求且不携带响应包体，并暗示客户端需更新当前的页面视图；
+    * 206 Partial Content:使用range协议时返回部分响应内容时的响应码；
+
+* 3XX：重定向使用Location指向的资源或者缓存中的资源。在RFC2068中规定客户端重定向次数不超过5次，以防止死循环。
+    * 301 moved premanentle:资源永久性的重定向到另一个URI中；
+    * 302 Found:资源临时的重定向到另一个URI中；
+    * 304 not modified：告知客户端可以复用缓存。
+
+* 4XX: （400 401/407 405 408 411 413/414 415）
+    * 400 bad request:服务器认为客户端出现了错误，但不能明确判断为以下那种错误时使用此错误码。例如http请求格式错误。
+
+    * 401 unauthorized:用户认证信息缺失或者不正确，导致服务器无法处理请求。（源服务器返回）
+    * 407 Proxy authentication required:认证信息未通过代理服务器的验证(代理服务器返回)
+    
+    * 403 Forbidden：服务器理解`请求的含义`，但是没有权限执行此请求。
+
+    * 404 not found:服务器没有找到对应的资源；
+    * 410 Gone:对404补充，知道资源永远没有此资源；
+
+    * 405 method Not allowed：服务器不支持请求行中的method方法
+    * 408 request timeout：服务器`接收请求`超时
+
+    * 411 length required:如果请求含有包体且未携带content-length头部，且不属于chunk类请求时。
+
+    * 413 payload too large：请求的包体超出服务器能处理的最大长度
+    * 414 URI too long：请求的URI超出服务器能接受的最大长度；
+    
+
+    * 415 unsupported media type：上传的文件类型不被服务器支持；
+    * 451：由于法律原因资源不可访问
+
+* 5xx （500 502 504 511）
+    * 500：服务器内部错误，且不属于一下错误类型；
+    * 501 not implemented:服务器不支持实现请求所需要的功能；
+    * 502 bad Gateway：代理服务器无法（从源服务器）获取到合法响应；
+    * 503 service unavailable:服务器(并发数达到上限等原因)资源尚未准备好 处理当前请求；
+    * 504 gateway timeout：代理服务器无法及时的从上游获取响应；（代理服务器设置的超时时间太短了）
+    * 505 http version not supported ：请求使用的http协议版本不支持；
+    * 511 network authentication required：代理服务器发现客户端需要进行 身份验证才能获得网络访问权限；
+
 ###  http发展历程
 * 早在 HTTP 建立之初，主要就是为了将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器，用户端通过浏览器访问url地址来获取网页的显示内容。
 * 到了 WEB2.0 以来，我们的页面变得复杂，不仅仅单纯的是一些简单的文字和图片，同时我们的 HTML 页面有了 CSS，Javascript，来丰富我们的页面展示，当 ajax 的出现，我们又多了一种向服务器端获取数据的方法，这些其实都是基于 HTTP 协议的。
@@ -43,12 +144,87 @@
 * RFC规定状态码：三位数字组成，取值范围000-999;
 * RFC把状态码分成5类：用数字的第一位表示分类，这样状态码范围变成100-599；
 
+### cookie (http state management mechanism)
+* cookie是http的状态管理机制;
+* 保存在客户端、由浏览器维护、表示应用状态的http头部
+    * 存放在内存或者磁盘中
+    * 服务器端生成cookie在响应中，通过set-cookie头部告知客户端（允许多个set-cookie）
+        ```
+        set-cookie:key=vaule;
+        set-cookie:key2=vaule2;
+        ```
+    * 客户端得到cookie后，后续请求都会自动将cookie头部携带至请求中
+    ```
+    cookie:key=vaule;key2=vaule2;
+    ```
+* cookie-pair的属性(6个)
+    `cookie-av=expires-av/max-age-av/domain-av/path-av/secure-av/httponly-av/extension-av`
+    * expires-av=“Expires="sane-cookie-date
+        * cookie到日期 sane-cookie-date后失效
+    * max-age-av="Max-Age="non-zero-digit * DIGIT
+        * cookie 经过 *DIGIT秒后失效。max-age优先级高于expires
+         `set-cookie:key1=value;path=/;Max-Age=10;`
+    * domain-av="Domain="domain-value
+        * 指定cookie可用于那些域名，默认可访问当前域名
+    * path-av="Path="path-value
+        * 指定path路径下才能使用cookie
+        `set-cookie:key1=value;path=/`
+    * secure-av="Secure"
+        * 只有使用TLS/SSL协议时才能使用cookie
+    * httponly-av="HttpOnly"
+        * 不能使用js的api访问到cookie
+         `set-cookie:key1=value;path=/;HttpOnly`
 
-### 请求头、响应头
+* Cookie 使用限制
+    * RFC规范对浏览器使用Cookie的要求
+        * 每条cookie的长度至于要达到4KB;
+        * 每个域名才至少支持50个Cookie；
+        * 至少要支持300个cookie；
+    * 代理服务器传递Cookie时会有限制
+* Cookie在协议设计上的问题
+    * Cookie会被附件到每个http请求中，所以无形增加传输流量
+    * 由于http请求中cookie是明文传输，所以完全性成问题；
+    * Cookie的大小不应该超过4kB，对复杂的存储需求不够用；
+* 第三方Cookie
+    浏览器允许对应不安全域下(跨域)的资源（比如：广告、图片） 响应中的set-cookie保存，并在后续访问该域时自动使用cookie；
+    * 用户踪迹信息的搜索
 
-### http请求方法
-### http缓存策略
-### cookie/session/token
+### 为什么需要同源策略（协议、主机、端口必须完全相同）
+不能保证请求是用户自愿发出的？
+* 安全性与可用性需要一个平衡点
+    * 可用性：HTML的创作者 决定跨域请求是否对本站点安全；
+        * <script><img><iframe><link><video><audio>带有src属性可以跨域访问；
+        * 允许跨域 写操作：例如：表单提交或者重定向请求；
+            * CSRF安全性问题
+    * 安全性：浏览器需要防止站点A的脚本向站点B发起危险动作；
+        * Cookie、LocalStorage和indexDB无法读取
+        * DOM无法获取
+        * Ajax请求不能发送
+
+* 跨站请求伪造攻击（Cross-site request forgery）
+
+
+### 如何合法跨域请求
+* 浏览器同源策略下的跨域访问解决方案
+    * 如果站点A允许站点B的脚本访问其资源，必须`在HTTP响应中显式的告知浏览器`：站点B是被允许访问的。
+        * 访问站点A的请求，浏览器应告知该请求来自站点B；
+        * 站点A的响应中，应明确那些跨域请求是被允许的；
+* 策略1：何为简单请求?
+    * GET/POST/PUT
+    * 
+
+```s
+request头
+    origin:
+响应头：
+    Access-Control-Allow-Origin：''
+```
+
+
+
+
+CORS（跨域资源共享）
+
 
 ### 运输层协议（TCP、UDP）：
 * 进程之间通信 -- 向上面的应用层提供通信服务；
