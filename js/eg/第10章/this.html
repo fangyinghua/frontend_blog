@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // window.identity = 'The Window';
+        // let object = {
+        //     identity: 'My Object',
+
+        //     getIdentityFunc() {
+        //         //把 this 保存到闭包可以访问的另一个变量中，则是行得通的。
+        //         // 函数嵌套了 
+        //         let that = this;
+        //         return function test() {
+        //             //函数 不会绑定到某对象中 this指向window ，严格模式下 undefined
+        //             // 每个函数在被调用时都会自动创建两个特殊变量：this 和 arguments。内部函数永
+        //             //远不可能直接访问外部函数的这两个变量。
+        //             return that.identity; // 'My Object'
+        //         };
+        //     }
+        // };
+        // // console.log();
+        // const result = object.getIdentityFunc()
+        // console.log(result());
+
+
+        // window.identity = 'The Window';
+        // let object = {
+        //     identity: 'My Object',
+        //     getIdentity() {
+        //         return this.identity;
+        //     }
+        // };
+        // let res;
+        // // res= object.getIdentity(); // 'My Object' 
+        // res = (object.getIdentity)(); // 'My Object' 
+        // // res=      (object.getIdentity = object.getIdentity)(); // 'The Window'
+        // console.log(res);
+
+        // (function () {
+        //     for (var i = 0; i < 10; i++) {
+        //         console.log(i);
+        //     }
+        // })();
+        // // console.log(i);
+
+
+        // function MyObject() {
+        //     // 私有变量和私有函数 
+        //     let privateVariable = 10;
+        //     function privateFunction() {
+        //         return false;
+        //     }
+        //     // 特权方法 闭包的方法
+        //     this.publicMethod = function () {
+        //         privateVariable++;
+        //         return privateFunction();
+        //     };
+        // }
+
+        // const obj = new MyObject();
+        // obj.publicMethod()
+
+        let num1 = parseInt("10", 2); // 2，按二进制解析
+        let num2 = parseInt("9", 8); // 8，按八进制解析
+        let num3 = parseInt("10", 10); // 10，按十进制解析
+        let num4 = parseInt("1", 16); // 16，按十六进制解析 10 --16 
+        console.log(num1);
+        console.log(num2);
+        console.log(num3);
+        console.log(num4);
+    </script>
+</body>
+
+</html>
