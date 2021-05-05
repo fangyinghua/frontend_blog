@@ -13,11 +13,18 @@
   
 - 网络
   - [websocket](/http/websocket.md)
-  - [http](/http/http.md)
+  - http
+    - [发展史](/http/http/HistoryOfDevelopment.md)
+    - [请求方法](/http/http/method.md)
+    - [响应状态](/http/http/status.md)
+    - [cookie](/http/http/cookie.md)
+    - [跨域](/http/http/CrossDomain.md)
+    - [条件请求](/http/http/ConditionalRequest.md)
+    - [网络安全](/http/网络安全.md)
   <!-- - [https](/http/https.md) -->
-  - [http2](/http/http2.md)
+  <!-- - [http2](/http/http2.md) -->
   <!-- - [http3](/http/http3.md) -->
-  - [网络相关的面试题目](/http/网络相关的面试题目.md)
+  <!-- - [网络相关的面试题目](/http/网络相关的面试题目.md) -->
 <!-- 
 - 协议
   - [webSocket](/docs/webSocket.md) -->

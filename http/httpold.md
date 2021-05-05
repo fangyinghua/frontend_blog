@@ -85,12 +85,6 @@ tcp学习参考资料：https://www.jianshu.com/p/de85547cd5de
 
 
 
-
-
-
-
-
-
 ### http
 http1.1 -> rest架构
 
@@ -200,15 +194,15 @@ http1.1 -> rest架构
             * HEAD方法请求对应的响应
             * 1XX、204/304对应的响应
             * connect对应的2xx响应；
-    * 两种传输http包体的方式
+    * 两种`传输http包体的方式`
         * 发送http消息时，已经能够确定包体的全部长度
-            * 使用content-length头部明确指明 包体长度
+            * 使用`content-length`头部明确指明 包体长度
             * content-length=1*DIGIT;（可见性要求高，所以采用10进制）
             * 用10进制（不是16进制）表述包体的<span color="red">字节</span>个数，且必须与实际传输的包体长度一致。
             * 不一致：content-length<实际长度= => 内容截取;content-length>实际长度 ==>报错 无法响应；
             * 优点：接收端处理更简单
         * 发送http消息时，不能确定包体的全部长度
-            * 使用transfer-encoding头部，指明使用chunk传输方式
+            * 使用`transfer-encoding`头部，指明使用`chunk`传输方式
             * 含transfer-encoding头部，content-length头部会被忽略。
             * 优点：
                 * 基于长连接 持续推送动态内容；
@@ -234,7 +228,7 @@ http1.1 -> rest架构
        * 格式： content-type:type（类型）/subtype(子类型)
        * discrete-type:type:text/image/audio/video/application
        * composite-type:message/multipart
-       *  extension-token:x-token等            
+       * extension-token:x-token等            
     * content-disposition
         * disposition-type="inline/attachment" 
         * inline:指定包体以inline内联的方式，作为页面的一部分展示；
@@ -242,7 +236,6 @@ http1.1 -> rest架构
 
 * HTML form表单
     提供了<span style="color:red">交互控制元件</span>用来向 服务器通过 http协议提交信息，常见控件有：
-
     * Text Input Controls:文本输入控件
     * Checkboxes  Controls:复选框控件
     * Radio Box  Controls:单选按钮控件
@@ -257,21 +250,16 @@ http1.1 -> rest架构
         get方法没有包体，在url通过？&进行拼接；
     * enctype：在post方法下，对表单内容在请求包体中的编码方式
         * application/x-www-form-urlencoded
-            * 数据被编码成以&分隔的键和值，字符以URL编码方式编码；
+            * 数据被编码成以`&分隔`的`键和值`，字符以URL编码方式编码；
         * multipart/form-data (比较复杂的方式 --上传文件)
             * boundary 分隔符
             * 每部分 表述皆有http头部描述 子包体，例如：content-type
             * last  boundary 结尾
-        * content-type:multpart/form-data; (多个资源 表述 表单每一个控件 都是独立的资源表述)
-            boundary=----wswwwwssssss
-
-        * boundary 分隔符的格式
-          * boundary：=0*69<bchars> 0-69个字符 数字、字符、+、_、，、.、：等任意字符；
-          * last-boundary:-- xxx-- \r\n
-
-* 缓存原理
-
-* 包体传输方式
+            * content-type:multpart/form-data; (多个资源 表述 表单每一个控件 都是独立的资源表述)
+                * boundary=----wswwwwssssss;
+                * boundary 分隔符的格式;
+                * boundary：=0*69<bchars> 0-69个字符 数字、字符、+、_、，、.、：等任意字符;
+                * last-boundary:-- xxx-- \r\n;
 
 
 ### 网络安全
