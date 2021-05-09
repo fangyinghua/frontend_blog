@@ -1,7 +1,8 @@
 <!-- - 设计模式
   - [装饰器模式](/README.md) -->
 - JavaScript
-  - [Promise](/js/promise.md)
+  - [Promise基础](/js/promise.md)
+  - [判断数据类型的方法](/js/判断数据类型的方法.md)
 
 - Node
   <!-- - [创建子进程方式](/docs/child_process.md) -->

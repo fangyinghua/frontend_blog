@@ -74,7 +74,7 @@
 * 握手目标
     * 同步 Sequence序列号
         * 初始序列号 ISN（initial Sequence Number）
-    * 交互TCP通信参数
+    * 交互`TCP通信参数`
         * 如 MSS 、窗口比例因子 、选择性确认、指定校验和算法
 
 ### 流量控制（滑动窗口）

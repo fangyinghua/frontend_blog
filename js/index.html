@@ -7,38 +7,59 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+<style>
+    html{
+        margin-top:10px;
+        height: 10000px;
+    }
+    div{
+        width:100px;
+        height:100px;
+        /* margin:10px; */
+        border:1px solid red;
+    }
+    .div1{
+        position: absolute;
+        top:10px;
+    }
+    .div11{
+        position: relative;
+        top:10px;
+    }
+    .div12{
+        position: relative;
+    }
+    .div13{
+        /* position: sticky; */
+    }
+    .div2{
+        position: fixed;
+        top:50px;
+        left:20px;
+       background: red;
+    }
+</style>
 
 <body>
-    <div>11222</div>
-    <code>u2028</code>
-    <div>3344344</div>
+    <div class="div1">
+        1111
+        <div class="div11" >222</div>
+        <div class="div12">333</div>
+        <div class="div13">
+            444
+            <div class="div2"> 555</div>
+        </div>
+    </div>
+
+
     <script>
-        function OneClass() {
-            this.name = 'one';
+        const a = {
+            q: 1
         }
-
-        function OtherClass() {
-            this.name = 'other';
-        }
-        let args={name:'xiao',length:1};
-
-        // 创建一个对象:
-        var obj1 = Reflect.construct(OneClass, args, OtherClass);
-
-        // 与上述方法等效:
-        var obj2 = Object.create(OtherClass.prototype);
-        OneClass.apply(obj2, args);
-
-        // console.log(obj1.name); // 'one'
-        console.log(obj2.name); // 'one'
-        // const testObj = new obj2();
-
-        // console.log(testObj instanceof OneClass); // false
-        console.log(obj1 instanceof OneClass); // false
-        console.log(obj2 instanceof OneClass); // false
-
-        console.log(obj1 instanceof OtherClass); // true
-        console.log(obj2 instanceof OtherClass); // true
+        a.q = 3;
+        a.c = 22;
+        delete a.q;
+        console.log(a);
     </script>
 </body>
 
