@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        height: 100vh;
+        background: yellowgreen;
+        widows: 100px;
+        margin: 0;
+    }
+
+
+
+    .div-content {
+        margin:10px;
+        height: 10px;
+        padding-top: 50px;
+        border: 1px solid yellow;
+        /* overflow: scroll; */
+    }
+
+    .div-content2 {
+        height: 200px;
+        /* padding-top: 50px; */
+        /* border: 1px solid blue; */
+        /* overflow:scroll; */
+    }
+
+    /* 盒模型：content-box：content、padding、border、margin */
+</style>
+
+<body>
+    <div style="height:20px;"></div>
+    <div class="div-content" id="div">
+        <!-- content -->
+        <div class="div-content2" id="div2"> </div>
+    </div>
+    <script>
+
+        // console.log(document.body.clientHeight);
+        // console.log(document.body.scrollHeight);
+        // console.log(document.body.offsetHeight);
+        // console.log(document.body.scrollTop)
+        const div = document.getElementById('div');
+        console.log(div.clientHeight);//98  padding 183 200
+        console.log(div.scrollHeight);//全部的 373  （323） +border =2 + 200 + 
+        const div2 = document.getElementById('div2');
+        console.log(div.offsetHeight);
+        console.log(div2.scrollTop)
+
+    </script>
+</body>
+
+</html>

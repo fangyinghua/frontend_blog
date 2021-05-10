@@ -11,19 +11,34 @@
 <body>
     <input type="text" oncopy="myFunction()" value="尝试拷贝文本">
     <script>
-        
-     class StaticProperty{
-         static adminName(){
-             console.log(this);
-             return 'sss';
-         }
-     }
+        let obj = {
+            name: '孙艺珍',
+            age: 20,
+            //
+            birthday: new Date('1996/01/01'), // Date日期自动用 toJSON() 或 toISOString() 转成了字符串
+            // NaN和Infinity格式的数值会被当做是null
+            inf: Infinity,
+            NaN: NaN,
+            // undefined、Symbol类型、函数会被忽略
+            love: undefined,
+            sym: Symbol('小明同学'),
+            say() {
+                console.log('说话')
+            },
+            arr: [],
+            ccced: true,
+            a: Promise.resolve(1),
+            ccc: Symbol.for('ccc'),
+            obj: { a: 1, b: 2 },
+            reg: /(0-9)/ // 正则会转成空对象 {}
+        }
+        let id = Symbol("id");
 
-     class CommonCla extends StaticProperty{
+        obj[id] = 1;
 
-     }
-
-     console.log(CommonCla.adminName());
+        var obj3 = JSON.parse(JSON.stringify(obj));
+        console.log(obj);
+        console.log(obj3);
     </script>
 </body>
 
