@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+          var shortestToChar = function (s, c) {
+            const len = s.length;
+            if (len === 0) return [];
+            const regexp = new RegExp(c, 'g');
+            const result = [...s.matchAll(regexp)];//匹配所有
+            const mathArr = result.map((item) => item.index);
+            let first = 0;
+            const ret = [];
+            if (result.length === 0) {
+                return ret;
+            }
+            let left=0,right=0;
+            let second = 0;
+            if (mathArr.length>0) {
+                right=1;
+                second = mathArr[right];
+            }
+
+            for (let i = 0; i < len; ++i) {
+                first = mathArr[left] || 0;
+                second = mathArr[right] || 0;
+                let index = Math.abs(first - i);
+                if (second === 0) {
+                    ret.push(index);
+                    continue;
+                } else if (second > 0) {
+                    let ind=mathArr.findIndex((item)=>(item===i));
+                    if(ind>-1){
+                        ret.push(0);
+                        continue;
+                    } else{
+                        const index2=Math.abs(second-i);
+                        if(index>index2){
+                            left=right;
+                            first = mathArr[left] || 0;
+                            if((right+1)<=mathArr.length){
+                                right=right+1;
+                                second = mathArr[right] || 0;
+                            }else{
+                                right=left;
+                                second = first;
+                            }
+                          const re= Math.min(Math.abs(first - i),Math.abs(second-i));
+                            ret.push(re);
+                            continue;
+                        }else{
+                            ret.push(index);
+                        }
+                    }
+                }
+            }
+            return ret;
+        };
+ 
+    </script>
+</body>
+
+</html>
