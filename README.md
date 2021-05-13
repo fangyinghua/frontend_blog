@@ -9,7 +9,7 @@
     
     - 数据结构与算法
         - [ ] 数组
-            - [ ] [数组基础api](/数组基础api.md)
+            - [X] [数组基础api](/algorithm/arrary/数组基础api.md)
         <!-- - [ ] 链表
         - [ ] 二叉树
         - [ ] URLcache
