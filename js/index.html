@@ -8,42 +8,48 @@
     <title>Document</title>
 </head>
 <style>
-    html{
-        margin-top:10px;
+    html {
+        margin-top: 10px;
         height: 10000px;
     }
-    div{
-        width:100px;
-        height:100px;
+
+    div {
+        width: 100px;
+        height: 100px;
         /* margin:10px; */
-        border:1px solid red;
+        border: 1px solid red;
     }
-    .div1{
+
+    .div1 {
         position: absolute;
-        top:10px;
+        top: 10px;
     }
-    .div11{
+
+    .div11 {
         position: relative;
-        top:10px;
+        top: 10px;
     }
-    .div12{
+
+    .div12 {
         position: relative;
     }
-    .div13{
+
+    .div13 {
         /* position: sticky; */
     }
-    .div2{
+
+    .div2 {
         position: fixed;
-        top:50px;
-        left:20px;
-       background: red;
+        top: 50px;
+        left: 20px;
+        background: red;
     }
 </style>
 
 <body>
     <div class="div1">
         1111
-        <div class="div11" >222</div>
+        <div class="div11">222</div>
         <div class="div12">333</div>
         <div class="div13">
             444
@@ -53,13 +59,41 @@
 
 
     <script>
-        const a = {
-            q: 1
-        }
-        a.q = 3;
-        a.c = 22;
-        delete a.q;
-        console.log(a);
+        //     function flat(arr,dep) {
+        //         return dep>1?arr.reduce(function (acc, cur) {
+        //             return acc.concat(Array.isArray(cur)?flat(cur):cur);
+        //         }, []):arr.slice();
+        //     }
+        //    const arr= flat([1,2,3,[4,5,6]],1);
+        //    console.log(arr);
+        // const obj = {
+        //     a: '2',
+        //     b: 2,
+        //     c: false,
+        //     d: null,
+        //     e: [1,2,3,[4,4]]
+        // }
+        // console.log(obj);
+        // const result = JSON.parse(JSON.stringify(obj));
+        // console.log(result);
+
+        let book = {
+            title: "Professional JavaScript",
+            authors: [
+                "Nicholas C. Zakas",
+                "Matt Frisbie"
+            ],
+            edition: 4,
+            year: 2017,
+            b:function(){},
+            c:[undefined],
+            
+
+            
+        };
+        let jsonText = JSON.stringify(book);
+
+        console.log(jsonText,book);
     </script>
 </body>
 
