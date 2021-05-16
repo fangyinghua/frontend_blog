@@ -9,20 +9,20 @@
 </head>
 
 <body>
-    <input type="text" oncopy="myFunction()" value="尝试拷贝文本">
     <script>
-        const worker = new Worker('./a.js')
-        worker.postMessage('hello word');
 
-        worker.onmessage = function (event) {
-            console.log(event.data);
-        }
-        console.log(navigator);
 
-        // worker.terminate()
-        // 主线程关闭 terminate
-        // self.close()
-
+        const obj = {
+            foo: 'world',
+            find() {
+                return super.foo;
+            }
+        };
+        const { ...obj1 } = obj;
+     
+        obj1.foo=22;
+        console.log(obj1);
+        console.log(obj);
 
     </script>
 </body>

@@ -64,17 +64,17 @@
     4. 不会改变原数组方法
 
      * Array.prototype.slice([begin,[,end]])  --返回一个新数组
-        ```js
-        const animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
-        console.log(animals.slice(2));//从下标为2开始
-        Array ["camel", "duck", "elephant"]
-        ```
+    ```js
+    const animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
+    console.log(animals.slice(2));//从下标为2开始
+    Array ["camel", "duck", "elephant"]
+    ```
      * Array.prototype.concat()
-        ```js
-        const array1=[1,2];
-        const array2=[2,1];
-        const array3=array1.concat(array2);//Array [1, 2, 2, 1]
-        ```
+    ```js
+    const array1=[1,2];
+    const array2=[2,1];
+    const array3=array1.concat(array2);//Array [1, 2, 2, 1]
+    ```
      * Array.prototype.reduce(reducer) -- 返回一个总结果  方向(从左往右)
             * reducer 
                 * Accumulator (acc) (累计器)
