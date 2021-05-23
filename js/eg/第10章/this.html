@@ -11,18 +11,34 @@
 <body>
     <script>
 
+        // 柯里化函数
+        const curry = function (fn) {
+            console.log(fn.length);
+            console.dir(arguments);
+            
+            // return function nest(...args) {
+            //     // fn.length表示函数的形参个数
+            //     if (args.length === fn.length) {
+            //         // 当参数接收的数量达到了函数fn的形参个数，即所有参数已经都接收完毕则进行最终的调用
+            //         return fn(...args);
+            //     } else {
+            //         // 参数还未完全接收完毕，递归返回judge，将新的参数传入
+            //         return function (arg) {
+            //             return nest(...args, arg);
+            //         }
+            //     }
+            // }
+        }
 
-        const obj = {
-            foo: 'world',
-            find() {
-                return super.foo;
-            }
-        };
-        const { ...obj1 } = obj;
-     
-        obj1.foo=22;
-        console.log(obj1);
-        console.log(obj);
+        function addNum(a, b, c) {
+            return a + b + c;
+        }
+
+        const addCurry = curry(addNum);
+
+       console.log(addCurry(1)(2)(3));
+        
+
 
     </script>
 </body>

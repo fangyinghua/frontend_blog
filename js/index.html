@@ -59,21 +59,32 @@
 
 
     <script>
-        const obj={
-            c:1
-        };
-        Object.defineProperty(obj,'a',{
-            enumerable:false,
-            value:33
-        })
-        console.log(obj)
+        let size = Symbol('size');
 
-       const obj1= Object.assign(obj)
-       console.log(JSON.stringify(obj1))
-       for( v in obj){
-           console.log(v,'v');
+        class Collection {
+            constructor() {
+                this[size] = 0;
+            }
 
-       }
+            add(item) {
+                this[this[size]] = item;
+                this[size]++;
+            }
+
+            static sizeOf(instance) {
+                return instance[size];
+            }
+        }
+
+        let x = new Collection();
+        console.log(Collection.sizeOf(x)) // 0
+
+        x.add('foo');
+        Collection.sizeOf(x) // 1
+
+        Object.keys(x) // ['0']
+        Object.getOwnPropertyNames(x) // ['0']
+        Object.getOwnPropertySymbols(x) // [Symbol(size)]
     </script>
 </body>
 

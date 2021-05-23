@@ -147,3 +147,10 @@
             Array(1, 2, 3);    // [1, 2, 3]
             ```
         * Array.isArray()
+
+
+3. 其他
+* TypedArray
+* ArrayBuffer
+* SharedArrayBuffer
+* Array Iterator

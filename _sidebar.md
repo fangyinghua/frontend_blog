@@ -20,6 +20,7 @@
   <!-- - [代理与反射](/js/代理与反射.md) -->
   - [Array.from()](/js/Array.from().md)
   - [ES6的新特性](/js/ES6的新特性.md)
+  - [Symbol.md](/js/Symbol.md)
   <!-- - [axios](/js/other/axios.md) -->
   
 - css
