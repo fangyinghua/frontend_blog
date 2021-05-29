@@ -1,7 +1,5 @@
 ### 反转链表
 
-61 24 
-
 1. [整条链表反转](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/)
 ```js
 // 递归
