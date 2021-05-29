@@ -60,6 +60,15 @@
 * 常见题目类型
     * 反转链表  
     * 缓存LRU
-    
+    * 如何实现反向遍历链表
 
+
+* 链表的前序遍历和后序遍历
+```js
+function traverse(head){
+    //前序遍历
+    traverse(head.next);
+    //后序遍历
+}
+```
 

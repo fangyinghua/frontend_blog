@@ -1,6 +1,5 @@
 ## 链表常见题目
 
-
 ### 反转链表
 
 1. [整条链表反转](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/)
@@ -18,7 +17,6 @@ function reverse(head){
 ```
 
 2. [两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)
-
 ```js
 /** 递归
  * @param {ListNode} head
@@ -85,7 +83,35 @@ var reverse=function(a,b){
 }
 ```
 
+
+### 判断链表是不是回文
+* 寻找回文串的核心思想 是 `从中心` 向 两端扩展; -- 回文串是对称的
+* [234. 回文链表](https://leetcode-cn.com/problems/palindrome-linked-list/)
+
+```js
+//方法一： 模拟双指针 -- 后序遍历
+let left;
+var isPalindrome = function(head) {
+    left=head;
+    return traverse(head);
+}
+
+function traverse(right){
+    if(right===null)return true;
+    res=traverse(right);
+    res=  res && (left.val===right.val)
+    left=left.next;
+    return res;
+}
+
+//方法二：优化空间复杂度 利用快慢指针先找到链表的中点
+
+```
+
+
+### 指针相关的题目
+
+
 ### 合并
 * [21. 合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
-
 * [23. 合并K个升序链表](https://leetcode-cn.com/problems/merge-k-sorted-lists/)
