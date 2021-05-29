@@ -11,7 +11,8 @@
             - [x] [RegExp](/algorithm/RegExp/RegExp(正则表达式).md)
             - [x] [字符串](/algorithm/string/string常用的方法.md)
 
-        - [x] [链表](/algorithm/Linked/Linked.md)
+        - [x]链表
+            - [链表基础知识](/algorithm/Linked/Linked.md)
             - [链表习题](/algorithm/Linked/test.js)
 
         - [ ] 二叉树
