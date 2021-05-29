@@ -1,5 +1,10 @@
 /**
  * @fileoverview Linked list implementation in javascript
+ * 
+ * add
+ * insertBefore(data,index)
+ * insertAfter(data,index)
+ * 
  */
 
 const head = Symbol('head');
@@ -98,4 +103,8 @@ class LinkedList {
         newNode.next=current.next;
         current.next=newNode;
     }
+
+
+    
+
 }

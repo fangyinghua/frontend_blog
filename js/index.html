@@ -59,32 +59,8 @@
 
 
     <script>
-        let size = Symbol('size');
-
-        class Collection {
-            constructor() {
-                this[size] = 0;
-            }
-
-            add(item) {
-                this[this[size]] = item;
-                this[size]++;
-            }
-
-            static sizeOf(instance) {
-                return instance[size];
-            }
-        }
-
-        let x = new Collection();
-        console.log(Collection.sizeOf(x)) // 0
-
-        x.add('foo');
-        Collection.sizeOf(x) // 1
-
-        Object.keys(x) // ['0']
-        Object.getOwnPropertyNames(x) // ['0']
-        Object.getOwnPropertySymbols(x) // [Symbol(size)]
+        let str='';
+        console.log(str.length);
     </script>
 </body>
 

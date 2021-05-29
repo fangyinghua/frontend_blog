@@ -21,6 +21,8 @@
   - [Array.from()](/js/Array.from().md)
   - [ES6的新特性](/js/ES6的新特性.md)
   - [Symbol.md](/js/Symbol.md)
+  - [Object.freeze/Object.seal](/js/Object.freeze_Object.seal.md)
+  - [DOM](/js/dom/DOM.md)
   <!-- - [axios](/js/other/axios.md) -->
   
 - css

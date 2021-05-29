@@ -27,75 +27,36 @@
     * 按照指针个数分为：单链表和双链表
         * 单链表: 每个节点包括两部分：一个是存储数据的数据域，另一个是存储下一个节点指针的指针域。
         * 双向链表: 每个节点包括三部分：一个是存储数据的数据域，一个是存储下一个节点指针的指针域，一个是存储上一个节点指针的指针域。(好处在于删除和插入的时候，可以更快地找到前驱指针,`双向链表`的本质就是`空间换时间`.)
+
 * 链表的基本操作
     * 插入
     * 删除
     * 遍历
+* 和数组相比
+链表在物理内存不是连续的，在逻辑结构连续的。不支持随机访问的特性。
 
-* 解题方法
-    * 迭代方法
-    * 递归方法  -- 明确`递归函数`的定义
+* 时间复杂度分析:
+    * 删除操作的时间复杂度(在知道前驱节点的情况下 O(1));
+    * 添加操作的时间复杂度(在知道前继节点的情况下 O(1))
+    * 获取某个值 O(N)
+
+* 常用解题方法
+    * 迭代方法 -- 循环
+    * 递归方法  -- 明确`递归函数`的定义,弄清递归函数的返回值，并且不要跳进递归。
+    * 快慢指针
+    
 
 * 链表节点结构
-```js
-function ListNode(val){
-    this.val=val;
-    this.next=null;
-}
-```
+    ```js
+    function ListNode(val){
+        this.val=val;
+        this.next=null;
+    }
+    ```
 
-* 常见题目
-    * 反转链表
-    * 
+* 常见题目类型
+    * 反转链表  
+    * 缓存LRU
+    
 
-    * 反转链表
-        * 解法一：迭代法 -- 循环
-        ```js
-        /**
-        * Definition for singly-linked list.
-        * function ListNode(val) {
-        *     this.val = val;
-        *     this.next = null;
-        * }
-        */
-        /**
-        * @param {ListNode} head
-        * @return {ListNode}
-        */
-        var reverseList = function(head) {
-
-            //迭代
-            let cur=head;
-            let pre=null;
-
-            while(cur){
-                const next=cur.next;
-                cur.next=pre;
-                pre=cur;
-                cur=next;
-            }
-            return pre;
-        };
-        ```
-        
-        * 解法二： 递归方法  
-        ```js
-        /**
-        * @param {ListNode} head
-        * @return {ListNode}
-
-            输入一个节点 head，将以head为起点 的链表反转
-            并返回反转后的 头节点 
-        */
-        
-        var reverseList = function(head) {
-        if(head===null || head.next===null){
-            return head;
-        }
-        const last=reverseList(head.next)
-            head.next.next=head;
-            head.next=null;
-            return last;
-        };
-        ```
 
