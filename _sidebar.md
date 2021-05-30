@@ -1,29 +1,19 @@
-<!-- - 设计模式
-  - [装饰器模式](/README.md) -->
-- 算法
-  - [数组](/algorithm/数组.md)
-  
-- JavaScript
+
+- JavaScript基础
   - [Promise基础](/js/promise.md)
   - [判断数据类型的方法](/js/判断数据类型的方法.md)
   - [取整的方法](/js/js取整数的方法.md)
-  - [判断字符是否为整数的方法](/js/js判断字符是否为整数的方法.md)
- 
-  
+  <!-- - [判断字符是否为整数的方法](/js/js判断字符是否为整数的方法.md)   -->
   - [JSON](/js/JSON.md)
-  - [网络请求与远程资源](/js/网络请求与远程资源.md)
-  
+  - [网络请求与远程资源](/js/网络请求与远程资源.md)  
   - [数据类型.md](/js/数据类型.md)
   - [复制数组的方法](/js/复制数组的方法.md)
-  <!-- - [模块](/js/模块.md) -->
   - [错误处理与调试](/js/错误处理与调试.md)
-  <!-- - [代理与反射](/js/代理与反射.md) -->
   - [Array.from()](/js/Array.from().md)
   - [ES6的新特性](/js/ES6的新特性.md)
   - [Symbol.md](/js/Symbol.md)
   - [Object.freeze/Object.seal](/js/Object.freeze_Object.seal.md)
   - [DOM](/js/dom/DOM.md)
-  <!-- - [axios](/js/other/axios.md) -->
   
 - css
   - [盒模型](/css/盒模型.md)
@@ -36,6 +26,7 @@
 
 - webpack
   - [优化](/webpack/优化.md)
+  - [Cannot find module 'webpack-cli/bin/config-yargs’解决方案](/webpack/问题.md)
   
 - 网络
   - [websocket](/http/websocket.md)
@@ -55,3 +46,5 @@
 <!-- 
 - 协议
   - [webSocket](/docs/webSocket.md) -->
+- 其他
+  - [两种源码组织模式](/other/两种源码组织模式.md)

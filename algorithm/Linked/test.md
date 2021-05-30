@@ -111,6 +111,138 @@ function traverse(right){
 
 ### 指针相关的题目
 
+1. [剑指 Offer 22. 链表中倒数第k个节点](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)
+
+```js
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var getKthFromEnd = function(head, k) {
+    let fast,slow;
+    fast=head;slow=head;
+    while(k--){
+        fast=fast.next;
+    }
+    while(fast){
+        fast=fast.next;
+        slow=slow.next;
+    }
+    return slow;   
+};
+```
+
+2. [141. 环形链表](https://leetcode-cn.com/problems/linked-list-cycle/)
+
+```js
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var hasCycle = function(head) {
+    let fast,slow;
+    fast=slow=head;
+
+    while(fast && fast.next){
+        fast=fast.next.next;
+        slow=slow.next;
+        if(fast===slow){
+             return true;
+        }
+    }
+    return false;
+};
+``` 
+
+3. [142. 环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
+```js
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function(head) {
+    let fast,slow;
+    fast=head;slow=head,hasCycle=false;
+    while(fast!=null && fast.next!=null){
+        fast=fast.next.next;
+        slow=slow.next;
+        if(fast===slow) {hasCycle=true; break};
+    }
+
+    if(!hasCycle){return null}
+    slow=head;
+    while(slow!=fast){
+        slow=slow.next;
+        fast=fast.next;
+    }
+    return slow;
+};
+```
+
+4. [109. 有序链表转换二叉搜索树](https://leetcode-cn.com/problems/convert-sorted-list-to-binary-search-tree/)
+
+* 思想：通过`快慢指针`，获取链表的中点,然后通过`分治的思想`;
+
+```js
+/**
+ * @param {ListNode} head
+ * @return {TreeNode}
+ */
+var sortedListToBST = function(head) {
+   return buildTree(head, null)
+};
+
+function getMid(left,right){
+    //查找链表的中点
+    let fast,slow;
+    slow=left;fast=left;
+    while(fast!=right && fast.next && fast.next!=right){
+        fast=fast.next.next;
+        slow=slow.next;
+    }
+    return slow;
+}
+
+function buildTree(left,right){
+    if(left ===right){
+        return null;
+    }
+    let mid=getMid(left,right);
+    let root=new TreeNode(mid.val);
+    root.left=buildTree(left,mid);
+    root.right=buildTree(mid.next,right);
+    return root;
+}
+```
+
+5. [160. 相交链表](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/)
+```js
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function(headA, headB) {    
+    let left,right;
+    left=headA,right=headB;
+
+    while(left!=right){
+        if(left){
+            left=left.next;
+        }else{
+            left=headB;
+        }
+
+        if(right){
+            right=right.next;
+        }else{
+            right=headA;
+        }
+    }
+    return left;
+};
+```
 
 ### 合并
 * [21. 合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/)

@@ -11,17 +11,22 @@
             - [x] [RegExp](/algorithm/RegExp/RegExp(正则表达式).md)
             - [x] [字符串](/algorithm/string/string常用的方法.md)
 
+        - 数组
+            - [数组基础](/algorithm/array/array.md)
+            - [数组习题](/algorithm/array/test.md)
+
         - 链表
             - [链表基础知识](/algorithm/Linked/Linked.md)
             - [链表习题](/algorithm/Linked/test.js)
 
-        - 缓存
-            - [ ] URLcache
-
+        <!-- - 缓存
+            - [ ] URLcache -->
+        - 滑动窗口
+          
         - 前缀和
             - [前缀和基础知识](/algorithm/subsequence/前缀和.md)
 
-        - [ ] 二叉树
+        <!-- - [ ] 二叉树
             - [ ] 二叉搜索树        
-        - [ ] 动态规划 
+        - [ ] 动态规划  -->
         
