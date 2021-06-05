@@ -244,6 +244,38 @@ var getIntersectionNode = function(headA, headB) {
 };
 ```
 
+6. [19. 删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+   let fast=head,slow=head,i=0,res=new ListNode(0);
+   res.next=head;
+   pre=res;
+   while(i<n && fast){
+       i++;
+       fast=fast.next;
+   }
+
+   while(fast){
+        fast=fast.next;
+        slow=slow.next;
+        pre=pre.next;
+   }
+   pre.next=pre.next.next;
+   return res.next;
+};
+```
 ### 合并
 * [21. 合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
 * [23. 合并K个升序链表](https://leetcode-cn.com/problems/merge-k-sorted-lists/)
