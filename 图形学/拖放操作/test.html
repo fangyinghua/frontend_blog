@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box1" draggable="true" style="width:200px;height:200px;border:1px solid red;"> 22</div>
+
+    <div id="box2"  draggable="true" style="width:200px;height:200px;border:1px solid green; position: absolute;bottom: 500px;;" >222</div>
+</body>
+<script>
+    let box1=document.querySelector('#box1');
+    box1.ondragstart=function(e){
+        console.log(e);
+        e.dataTransfer.setData('text/plain','2222');//覆盖
+        e.dataTransfer.setData('text/plain','3333');//覆盖
+        e.dataTransfer.setData('text/plain','4444');//覆盖
+    }
+    box1.ondrag=function(e){
+        console.log(e);
+    }
+    box1.ondragend=function(e){
+        console.log(e);
+    }
+
+    /**
+     * 
+     */
+    
+</script>
+</html>
