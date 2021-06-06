@@ -433,7 +433,36 @@ var findBottomLeftValue = function (root) {
 12. [987. 二叉树的垂序遍历](https://leetcode-cn.com/problems/vertical-order-traversal-of-a-binary-tree/)
 
 ```js
+/**
+ * 相同列放入在一起
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var verticalTraversal = function (root) {
+  const map = new Map();
+  let queue = [[root, 0]]; //以当前根元素进行左右偏移
 
+  while (queue.length) {
+    const cols = new Map(),
+      next = [];
+
+    for (let [node, x] of queue) {
+      if (!cols.has(x)) cols.set(x, [node.val]);
+      else cols.get(x).push(node.val);
+
+      if (node.left) next.push([node.left, x - 1]);
+      if (node.right) next.push([node.right, x + 1]);
+    }
+
+    //同列元素排序
+    for (let [x, val] of cols) {
+      if (!map.has(x)) map.set(x, []);
+      map.get(x).push(...val.sort((a, b) => a - b));
+    }
+    queue = next; //下一层
+  }
+  return [...[...map.entries()].sort((a, b) => a[0] - b[0]).map((x) => x[1])];
+};
 ```
 
 ### 计算二叉树的节点数
