@@ -23,3 +23,5 @@ traverse(root.right)
 }
 
 ```
+* 分类
+    * 满二叉树 / 完全二叉树
