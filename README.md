@@ -11,9 +11,12 @@
             - [x] [RegExp](/algorithm/RegExp/RegExp(正则表达式).md)
             - [x] [字符串](/algorithm/string/string常用的方法.md) -->
         
-        - 数组
+        <!-- - 数组
             - [数组基础](/algorithm/array/array.md)
-            - [数组习题](/algorithm/array/test.md)
+            - [数组习题](/algorithm/array/test.md) -->
+
+        - 栈/队列
+            - [栈/队列](/algorithm/stackAndQueue/readme.md)
 
         - 递归
             - [递归基础](/algorithm/recursion.md)

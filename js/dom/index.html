@@ -9,7 +9,7 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <div>
+    <div id="app">
         <p>TEST</p>
     </div>
 </body>
@@ -17,6 +17,9 @@
 
 <script>
 
+const app=document.getElementById('app');
+console.log(app.hasChildNodes());//[text,p,text]
+console.log(app.childNodes.item(1));
 </script>
 
 

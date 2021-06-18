@@ -32,14 +32,70 @@
     
     * 浏览器并不支持所有节点类型。开发者最常用到的是`元素节点和文本节点`。
 
+* Node属性：
+
     1. nodeName 与 nodeValue
-         `nodeName 与 nodeValue 保存着有关节点的信息`。这两个属性的值`完全取决于节点类型`。
+        * `nodeName 与 nodeValue 保存着有关节点的信息`。这两个属性的值`完全取决于节点类型`。
+        * 在使用前，检查节点类型；
+        ```html
+       
+         <div id="app">
+            <p>TEST</p>
+        </div>
+
+        <script>
+        const app=document.getElementById('app');
+        console.log(app.nodeType);//1
+        console.log(app.nodeValue);//null
+        console.log(app.nodeName);//DIV
+        </script>
+        ```
 
     2. 节点关系
         * 文档中的所有节点都与其他节点有关系。这些关系可以形容为家族关系，相当于把文档树比作家谱。
-        * 每个节点都有一个`childNodes属性`，其中包含一个`NodeList的实例`。NodeList 是一个类数组对象，用于存储可以按位置存取的有序节点。
+        * 每个节点都有一个`childNodes属性`，其中包含一个`NodeList的实例`。`NodeList` 是一个`类数组对象`，用于存储可以`按位置存取`的`有序节点`。
         * NodeList 并不是 Array 的实例，但可以使用`中括号`访问它的值，而且它也有 length 属性。
         * 其实是一个对 DOM 结构的查询，因此 DOM 结构的变化会自动地在 NodeList 中反映出来。我们通常说 `NodeList 是实时的活动对象`，而不是第一次访问时所获得内容的快照。
         * 每个节点都有一个`parentNode属性`，指向其 DOM 树中的父元素。
 
-    3. 
+        ```js
+        console.log(app.childNodes);
+       
+        //[text,p,text] length:3 
+        /*
+        举例：text:
+        比如有下面属性：
+        data: "\n        "
+        nodeType: 3
+        nodeName: "#text"
+        nextSibling: p
+        length: 9
+        nodeValue: "\n        "
+        parentNode: div#app
+        parentElement: div#app
+        ownerDocument: document
+        previousSibling: null
+        */         
+        ```
+
+        * 获取子节点方法
+        ```js
+        app.childNodes[0];
+          app.childNodes.item(0);
+        ```
+    3. 关系节点属性
+    * `parentNode` 属性指向其 DOM 树中的父元素。 / * `firstChild`和 `lastChild`分别指向 childNodes 中的第一个和最后一个子节点;
+    * `previousSibling` 和 `nextSibling` 指向节点相同层级的上一个兄弟节点和下一个兄弟节点；
+    * 如果childNodes中只有一个节点，则它的previousSibling和nextSibling属性都是 null。
+    * `hasChildNodes()`，这个方法`如果返回 true` 则说明节点有一个或多个子节点。相`比查询 childNodes 的 length 属性`，这个方法无疑更方便。
+    ```js
+    app.hasChildNodes();//true
+    ```
+    * 所有节点都共享的关系,`ownerDocument 属性`是一个指向代`表整个文档的文档节点 的指针`。可以把ownerDocument 当作根节点。一个节点不可能同时存在于两个或者多个文档中。
+
+    * ✨ 以上属性都是只读属性，所有关系指针都是只读的；
+
+    4. 操纵节点
+        1. appendChild()，用于在 childNodes 列表末尾添加节点。一个节点也不会在文档中同时出现在两个或更多个地方。
+        2. insertBefore()方法，把节点放到 childNodes 中的特定位置
+
