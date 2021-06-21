@@ -17,20 +17,20 @@
 * HTML 中的每段标记都可以表示为这个树形结构中的一个节点。`元素节点表示 HTML 元素`，`属性节点表示属性`，`文档类型节点表示文档类型`，`注释节点表示注释`。`DOM 中总共有 12 种节点类型`，这些类型都继承一种基本类型.
 
 
-* Node 类型
-    * 在 JavaScript中，所有节点类型都 `继承 Node 类型`，因此所有类型都共享相同的 `基本属性和方法`。
-    * 每个节点都有`nodeType属性`，表示该节点的类型。节点类型由定义在 Node 类型上的 `12 个数值常量`表示：
-        * Node.ELEMENT_NODE(1) element_node
-        * Node.ATTRIBUTE_NODE(2) attribute_node
-        * Node.TEXT_NODE (3) 
-        * Node.CDATA_SECTION_NODE (4) -- cdata_section_node
-        * Node.ENTITY_REFERENCE_NODE(5) -- entity_reference_node
-        * Node.ENTITY_NODE(6) -- entity_node 
-        * Node.PROCESSING_INSTRUCTION_NODE(7)  -- processing_instruction_node -- 处理指令节点
-        * Node.COMMENT_NODE (8) -- 注释节点
-        * Node.NOTATION_NODE(12)
-    
-    * 浏览器并不支持所有节点类型。开发者最常用到的是`元素节点和文本节点`。
+###### Node 类型
+* 在 JavaScript中，所有节点类型都 `继承 Node 类型`，因此所有类型都共享相同的 `基本属性和方法`。
+* 每个节点都有`nodeType属性`，表示该节点的类型。节点类型由定义在 Node 类型上的 `12 个数值常量`表示：
+    * Node.ELEMENT_NODE(1) element_node
+    * Node.ATTRIBUTE_NODE(2) attribute_node
+    * Node.TEXT_NODE (3) 
+    * Node.CDATA_SECTION_NODE (4) -- cdata_section_node
+    * Node.ENTITY_REFERENCE_NODE(5) -- entity_reference_node
+    * Node.ENTITY_NODE(6) -- entity_node 
+    * Node.PROCESSING_INSTRUCTION_NODE(7)  -- processing_instruction_node -- 处理指令节点
+    * Node.COMMENT_NODE (8) -- 注释节点
+    * Node.NOTATION_NODE(12)
+
+* 浏览器并不支持所有节点类型。开发者最常用到的是`元素节点和文本节点`。
 
 * Node属性：
 
@@ -97,5 +97,37 @@
 
     4. 操纵节点
         1. appendChild()，用于在 childNodes 列表末尾添加节点。一个节点也不会在文档中同时出现在两个或更多个地方。
-        2. insertBefore()方法，把节点放到 childNodes 中的特定位置
+        2. insertBefore()方法，把节点放到 childNodes 中的特定位置 -- 两个参数:要插入的节点和参照节点 --如果参照节点是 null，则 insertBefore()与 appendChild()效果相同.
 
+        ```js
+        // 作为最后一个子节点插入
+        returnedNode = someNode.insertBefore(newNode, null);
+
+        // 作为新的第一个子节点插入
+        returnedNode = someNode.insertBefore(newNode, someNode.firstChild);
+
+        // 插入最后一个子节点前面
+        returnedNode = someNode.insertBefore(newNode, someNode.lastChild);
+        ```
+        3. replaceChild()方法接收两个参数:要插入的节点和要替换的节点。要替换的节点会被返回并从文档树中完全移除，要插入的节点会取而代之。下面看一个
+        * 例子:
+        ```js
+        let returnedNode = someNode.replaceChild(newNode, someNode.firstChild);
+        ```
+        4. removeChild()方法 要移除节点而不是替换节点
+    * 以上四个方法需要 在父节点上操作。
+
+
+    4. 其他方法
+    * 所有节点类型还共享了两个方法。 
+        * 第一个是 `cloneNode()`，会返回与调用它的节点一模一样的节 点。cloneNode()方法接收一个布尔值参数，表示是否深复制。在传入 true 参数时，会进行深复制， 即复制节点及其整个子 DOM 树。如果传入 `false，则只会复制调用该方法的节点`。
+            * 复制返回的节点属 于文档所有，但尚未指定父节点，所以可称为孤儿节点(orphan)。
+            * 可以通过 appendChild()、 insertBefore()或 replaceChild()方法把孤儿节点添加到文档中。
+            * cloneNode()方法不会复制添加到 DOM 节点的 JavaScript 属性，比如事件处理程 序。这个方法`只复制 HTML 属性`，以`及可选地复制子节点`。除此之外则一概不会复制。
+            * IE 在很长时间内会复制事件处理程序，这是一个 bug，所以推荐在复制前先删除事件处 理程序。
+        * normalize()
+        任务就是处理文档子树中的文本节点。由于解析器实现的差异或 DOM 操作等原因，可能会出现并不包含文本的文本节点，或者文本节点之间互为同胞关系。在节点上调用 normalize()方法会检测这个节点的所有后代，从中搜索上述两种 情形。如果发现空文本节点，则将其删除;如果两个同胞节点是相邻的，则将其合并为一个文本节点。
+
+
+
+###### Document类型

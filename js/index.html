@@ -63,5 +63,9 @@
         console.log(str.length);
     </script>
 </body>
+<script>
+    const connectionStateChange = () => console.log(navigator.connection);
+    window.addEventListener('online', connectionStateChange); window.addEventListener('offline', connectionStateChange);
+</script>
 
 </html>

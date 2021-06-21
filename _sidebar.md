@@ -14,6 +14,10 @@
   - [Symbol.md](/js/Symbol.md)
   - [Object.freeze/Object.seal](/js/Object.freeze_Object.seal.md)
   - [DOM](/js/dom/DOM.md)
+  - [客户端的检测](/js/客户端的检测.md)
+  - [Base64的编码与解码](/js/Base64的编码与解码.md)
+  - [File/FileList/FileReader](/js/File_FileList_FileReader.md)
+  - [移动端端拖拽](/js/移动端端拖拽.md)
   
 - css
   - [盒模型](/css/盒模型.md)
@@ -48,11 +52,15 @@
 <!-- 
 - 协议
   - [webSocket](/docs/webSocket.md) -->
-- 状态管理库
-  - Recoil
+- 状态管理相关
+  - [redux-sage](/状态管理库/redux-sage.md)
+ 
+  
 
 
 - 其他
   - [两种源码组织模式](/other/两种源码组织模式.md)
   - [mac快捷键](/other/mac.md)
+  - [vscode插件的开发](/other/vscode插件的开发.md)
+  - [git的使用](/other/git.md)
   <!-- - CSV -->
