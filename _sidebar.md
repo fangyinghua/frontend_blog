@@ -22,8 +22,10 @@
 - css
   - [盒模型](/css/盒模型.md)
   - [单位](/css/单位.md)
+  - [css块级元素](/css/css块级元素.md)
   - [内联元素](/css/内联元素.md)
   - [替换元素](/css/替换元素.md)
+  - [查看所有css模块](/css/css模块.md)
 
 - Node
   <!-- - [创建子进程方式](/docs/child_process.md) -->
@@ -63,4 +65,6 @@
   - [mac快捷键](/other/mac.md)
   - [vscode插件的开发](/other/vscode插件的开发.md)
   - [git的使用](/other/git.md)
+  - [如何产出规范、安全、高质量的代码](/other/如何产出规范、安全、高质量的代码.md)
+  - [vscode动态生产小模板](/other/vscode动态生产小模板.md)
   <!-- - CSV -->
