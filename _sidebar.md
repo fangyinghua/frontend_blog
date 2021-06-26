@@ -26,6 +26,7 @@
   - [内联元素](/css/内联元素.md)
   - [替换元素](/css/替换元素.md)
   - [查看所有css模块](/css/css模块.md)
+  - [实现渐变色方法](/css/实现渐变色方法.md)
 
 - Node
   <!-- - [创建子进程方式](/docs/child_process.md) -->
@@ -54,6 +55,7 @@
 <!-- 
 - 协议
   - [webSocket](/docs/webSocket.md) -->
+
 - 状态管理相关
   - [redux-sage](/状态管理库/redux-sage.md)
  
@@ -67,4 +69,12 @@
   - [git的使用](/other/git.md)
   - [如何产出规范、安全、高质量的代码](/other/如何产出规范、安全、高质量的代码.md)
   - [vscode动态生产小模板](/other/vscode动态生产小模板.md)
+  - [谷歌浏览器访问https网站出现-您的连接不是私密连接](/other/谷歌浏览器访问不安全https网址.md)
+  
   <!-- - CSV -->
+
+- 图形学
+  - [浏览器实现可视化方法](浏览器实现可视化方法.md)
+
+- react
+   - [封装表单弹框重置](/react/封装表单弹框重置.md)
