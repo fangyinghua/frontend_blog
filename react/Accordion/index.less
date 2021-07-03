@@ -1,0 +1,48 @@
+
+.head{
+    position: relative;
+    z-index: 20;
+}
+
+.test1{
+    width: 100%;
+   position: absolute;
+   transition:all .3s;
+}
+
+.test3{  
+    width: 100%; 
+    position: absolute;
+   transition:all .3s;
+}
+.hide{
+    display: none;
+}
+.show{
+    overflow: hidden;
+}
+
+.navList{
+    display: flex;
+    flex-direction: row;
+    height: 44px;
+    background: #FFFFFF;
+    font-size: 15px;
+   &_item{
+       padding: 11px 0;
+       flex: 1;
+       text-align: center;
+   }
+   &_icon_active{
+    transition:all .3s;
+    transform: rotate(180deg);
+   }
+   &_icon_default{
+    transition:all .3s;
+    transform: rotate(0);
+   }
+}
+.navList_active{   
+    color: #FF6F1E;
+    font-weight: 400;
+}

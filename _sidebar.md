@@ -18,6 +18,7 @@
   - [Base64的编码与解码](/js/Base64的编码与解码.md)
   - [File/FileList/FileReader](/js/File_FileList_FileReader.md)
   - [移动端端拖拽](/js/移动端端拖拽.md)
+  - [判断两个值是否相等的方法](/js/判断两个值是否相等的方法.md)
   
 - css
  <!-- 完成第三章 -->
