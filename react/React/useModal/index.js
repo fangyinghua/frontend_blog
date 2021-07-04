@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Modal } from "antd-mobile";
 import ReactDOM from "react-dom";
 
@@ -40,7 +40,7 @@ export default function useModal() {
       div.parentNode.removeChild(div);
     }
 
-    if (config.onCancel) {
+    if (config.onCancel && typeof config.onCancel ==='function') {
       config.onCancel();
       setVisible(false);
     }
@@ -65,6 +65,10 @@ export default function useModal() {
       },
     []
   );
+
+  useEffect(()=>{
+    return ()=>destroy();
+  },[])
 
   const fns = React.useMemo(
     () => ({
