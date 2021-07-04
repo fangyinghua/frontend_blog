@@ -6,9 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+   .img-container{
+    position:relative;
+    height:0;
+    padding-bottom:45.937%; /* 16:8 ration */
+    height:0;
+    overflow:hidden;
+}
+.img-container img{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+</style>
 <body>
-    <img  src="" width="200" height="200" />
-    <img src="" width="200" height="200" />
-    <input /><input />11 <input /><input /> <input /><input /> <input /><input />
+    <div class="img-container">
+ <img src="./img/1624703385549.jpg" width="997" height="458"/>
+</div>
 </body>
 </html>
