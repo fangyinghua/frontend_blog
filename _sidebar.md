@@ -14,6 +14,13 @@
   - [Symbol.md](/js/Symbol.md)
   - [Object.freeze/Object.seal](/js/Object.freeze_Object.seal.md)
   - [DOM](/js/dom/DOM.md)
+  - [强制类型转换](/js/强制类型转换.md)
+  - [数据类型](/js/数据类型.md)
+  - [事件](/js/事件.md)
+  - [对象禁止扩展的方法](/js/)
+  - [小数转二进制](/js/小数转二进制.md)
+  - [Map和WeakMap的区别](/js/Map和WeakMap的区别.md)
+  https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/isExtensible
   
 - css
   - [盒模型](/css/盒模型.md)
@@ -53,3 +60,6 @@
 - 其他
   - [两种源码组织模式](/other/两种源码组织模式.md)
   - CSV
+
+- 深入理解计算机系统
+ - [第7章](/计算机系统/链接.md)

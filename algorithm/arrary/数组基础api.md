@@ -27,11 +27,13 @@
         * Array.prototype.pop()
         * Array.prototype.push()
         * Array.prototype.shift() 删除第一个元素
-        * Array.prototype.fill(value[, start[, end]])  -- 从start到end位置使用vaule填充
+        
         * Array.prototype.unshift(element1, ..., elementN)  -- 要添加到数组开头的元素或多个元素 -- 返回其 length 属性值
         * Array.prototype.splice(start[, deleteCount[, item1[, item2[, ...]]]]) -- （第三个及后面的参数有就是添加元素）（第三个参数没有就是删除操作）
         * Array.prototype.reverse() -- 数组翻转会改变原数组
         * Array.prototype.sort() -- 返回数组
+        
+        * Array.prototype.fill(value[, start[, end]])  -- 从start到end位置使用vaule填充
         * Array.prototype.copyWithin(target[, start[, end]]) -- 浅复制数组的一部分到同一数组中的另一个位置 -- 会改变原数组的长度
             * target 从什么位置开始替换 （原数组开始替换的位置）
             * start 需要复制的内容从哪里开始 （包含）

@@ -59,8 +59,17 @@
 
 
     <script>
-        let str='';
-        console.log(str.length);
+      function add(){
+
+            var args=[].slice.call(arguments);
+            var fn=function(){
+                var fn_args=[].slice.call(arguments);
+                return add.apply(null,[...args,...fn_args ]);
+            }
+
+            fn.toString();
+      }
+      
     </script>
 </body>
 
