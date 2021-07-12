@@ -23,10 +23,8 @@ const decode=(num)=>{
     const part1=part[0];
     for(let i=0,len=part1.length;i<len;++i){
         const index=codeData.findIndex((item)=>item===part1[i]);
-        if(index>-1 && (i!=(len-1))){
-            res+=(index*64);
-        }else if(index>-1 && i===(len-1)){
-            res+=index;
+        if(index>-1){
+            res+=(index*(64**(len-i-1)));
         }
     }
 
@@ -38,11 +36,8 @@ const decode=(num)=>{
     let res1=0;
     for(let i=0,len=part2.length;i<len;++i){
         const index=codeData.findIndex((item)=>item===part2[i]);
-        if(index>-1 && i==0){
-            res1+=(index/64);
-        }else if(index>-1 && i>0){
-            const nu=(index/64)/(10**(i+1));
-            res1+=nu;
+        if(index>-1){
+            res1+=(index*(64**(-i-1)));
         }
     }
 
@@ -82,3 +77,6 @@ const encode=(num)=>{
     }   
     return  `${intStr}.${decStr}`;
 }
+
+
+console.log(decode('B.GZmZmZmZo'));

@@ -20,6 +20,7 @@
   - [对象禁止扩展的方法](/js/)
   - [小数转二进制](/js/小数转二进制.md)
   - [Map和WeakMap的区别](/js/Map和WeakMap的区别.md)
+  - [indexDB](/js/indexDB.md)
   https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/isExtensible
   
 - css
