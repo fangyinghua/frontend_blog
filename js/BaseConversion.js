@@ -57,7 +57,7 @@ const encode=(num)=>{
     let intStr='', tempInt=integer;
     while(tempInt>=64){
        const merchant=(tempInt/64)  | 0; //商
-       const remainder=tempInt-merchant * 64;//余数
+       const remainder=merchant % 64;//余数
        intStr+= codeData[merchant];
        tempInt=remainder;
     }
@@ -80,3 +80,5 @@ const encode=(num)=>{
 
 
 console.log(decode('B.GZmZmZmZo'));
+
+console.log(encode(1.1))
